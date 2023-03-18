@@ -1,0 +1,31 @@
+@import './variables';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $cabin;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: $cabin;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $alata;
+}
+
+p {
+    font-family: $mulish;
+    font-size: 1rem;
+    font-weight: 500;
+}
