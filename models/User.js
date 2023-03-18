@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'user', 'creator'],
+        enum: ['admin', 'user', 'manager'],
         default: 'user',
     },
     image: {
@@ -55,7 +55,7 @@ UserSchema.pre("save", async function (next) {
 });
 
 // Password Comparison when login
-UserSchema.methods.comparePassword = async function (candidatePassword){
+UserSchema.methods.comparePassword = async function (candidatePassword) {
     const isMatch = await bcrypt.compare(candidatePassword, this.password);
     return isMatch
 }

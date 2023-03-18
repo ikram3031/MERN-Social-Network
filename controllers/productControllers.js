@@ -1,33 +1,49 @@
-const fs = require('fs')
-const path = require('path')
-const { StatusCodes } = require('http-status-codes')
-const multer = require('multer')
-const Product = require('../models/Product')
-const AppError = require('../utils/appError')
-const catchAsync = require('../utils/catchAsync')
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
+const Product = require('../models/Product');
+const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 
-const storage = multer.diskStorage({
 
-  destination: (req, file, callback) => {
-    callback(null, 'img/products')
-  },
+// Create Product
+const createProduct = async (req, res) => {
+  try {
+    const {
+      title,
+      image,
+      gallery,
+      category,
+      price,
+      salePrice,
+      colors,
+      features,
+      description,
+      shortDesc,
+    } = req.body;
 
-  filename: (req, file, callback) => {
-    const extension = file.mimetype.split('/')[1];
-    callback(null, `product-${file.originalname.split('.')[0]}-${Date.now()}.${extension}`)
+    const newProduct = new Product({
+      title,
+      image,
+      gallery,
+      category,
+      price,
+      salePrice,
+      colors,
+      features,
+      description,
+      shortDesc,
+    });
+
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(500).json({ message: 'Something went wrong', error });
   }
-});
+};
 
+module.exports = { createProduct };
 
-const fileFilter = (req, file, callback) => {
-
-  if (file.mimetype.startsWith('image')) callback(null, true);
-  else callback(new AppError('Please upload an Image', 400), false);
-}
-
-const upload = multer({ storage, fileFilter });
-
-const uploadAnything = upload.any();
 
 // GET ALL
 const getAllProducts = async (req, res) => {
@@ -44,20 +60,6 @@ const getSingleProduct = catchAsync(async (req, res, next) => {
   res.status(StatusCodes.OK).json({ success: true, data: product });
 });
 
-// Create Product
-const createProduct = catchAsync(async (req, res, next) => {
-
-  const file = req.files[0];
-  if (file) req.body.image = file.filename;
-  const product = await Product.create(req.body)
-
-  res.status(StatusCodes.CREATED).json({
-    success: true,
-    data: req.body,
-  });
-
-}
-)
 
 // Update
 const updateProduct = catchAsync(async (req, res, next) => {
@@ -116,6 +118,6 @@ const deleteProduct = catchAsync(async (req, res, next) => {
 
 
 module.exports = {
-  createProduct, getAllProducts, getSingleProduct, uploadAnything, updateProduct, deleteProduct
+  createProduct, getAllProducts, getSingleProduct, updateProduct, deleteProduct
 }
 

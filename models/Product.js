@@ -9,29 +9,27 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide product Images'],
     },
+    gallery: {
+        type: [String],
+        default: [],
+    },
     category: {
         type: String,
         required: [true, 'Please provide product Category'],
-    },
-    rating: {
-        type: Number,
-        required: [true, 'Please provide product Rating'],
     },
     price: {
         type: Number,
         required: [true, 'Please provide product price'],
     },
+    salePrice: {
+        type: Number,
+        default: function () {
+            return this.price;
+        },
+    },
     colors: {
         type: [String],
         // required: true,
-    },
-    url:{
-        type: String,
-        required: true,
-    },
-    sales: {
-        type: Number,
-        required:[true, 'Please provide url'],
     },
     features: {
         type: String,
@@ -41,13 +39,9 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide product Description'],
     },
-    details: {
+    shortDesc: {
         type: String,
-        required: [true, 'Please provide product Details'],
-    },
-    video: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Video",
+        required: [true, 'Please provide product Short Description'],
     },
 },
     { timestamps: true }
