@@ -5,7 +5,6 @@ const Product = require('../models/Product');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-
 // Create Product
 const createProduct = async (req, res) => {
   try {
@@ -48,7 +47,7 @@ module.exports = { createProduct };
 // GET ALL
 const getAllProducts = async (req, res) => {
   const products = await Product.find({});
-  res.status(StatusCodes.OK).json({ products, count: products.length })
+  res.status(200).json({ products, count: products.length })
 }
 
 // GET SINGLE PRODUCT
@@ -57,9 +56,8 @@ const getSingleProduct = catchAsync(async (req, res, next) => {
   if (!product) {
     return next(new AppError('Product not found with given ID', 404));
   }
-  res.status(StatusCodes.OK).json({ success: true, data: product });
+  res.status(200).json({ success: true, data: product });
 });
-
 
 // Update
 const updateProduct = catchAsync(async (req, res, next) => {

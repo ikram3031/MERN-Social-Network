@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { TbSearch } from "react-icons/tb";
@@ -34,8 +35,8 @@ const Navbar = () => {
             <header className={`main-header ${scrolled ? 'sticky-header' : ''}`}>
                 <div className="header-content">
                     <ul className="left">
-                        <li>Home</li>
-                        <li>Products</li>
+                        <li><Link to='/'>Home</Link></li>
+                        <li><Link to='/products'>Products</Link></li>
                         <li>Categories</li>
                     </ul>
                     <div className="center">ECOMMERCE.</div>
