@@ -39,7 +39,7 @@ const Navbar = () => {
                         <li><Link to='/products'>Products</Link></li>
                         <li>Categories</li>
                     </ul>
-                    <div className="center">ECOMMERCE.</div>
+                    <Link to='/' className="center">ECOMMERCE.</Link>
                     <div className="right">
                         <TbSearch onClick={() => setShowSearch(true)} />
                         <AiOutlineHeart />

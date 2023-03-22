@@ -6,6 +6,24 @@ import './SingleProduct.scss'
 const SingleProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
+    // Quantity input fuction
+    function handleQuantityChange(event) {
+        setQuantity(event.target.value);
+    }
+
+    // decrement
+    function handleDecrement() {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    }
+
+    // increment
+    function handleIncrement() {
+        setQuantity(quantity + 1);
+    }
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -21,26 +39,43 @@ const SingleProduct = () => {
     }, [id]);
 
     return (
-        <div class="single-product">
+        <div class="single-product container">
             {product && (
                 <>
-                    <div class="product-image">
-                        <img src={product.image} alt="Product Image" />
-                    </div>
-                    <div class="product-info">
-                        <h1 class="product-title">{product.title}</h1>
-                        <h3 class="product-price">${product.price}</h3>
-                        <p class="product-description">{product.description}</p>
-                        <div>
-                            <span>Features:</span>
-                            {product.features}
+                    <div className="product">
+                        {/* Left */}
+                        <div class="product-image">
+                            <img src={product.image} alt="Product Image" />
                         </div>
-                        <form class="product-form">
-                            <label for="product-quantity">Quantity:</label>
-                            <input type="number" id="product-quantity" name="product-quantity" min="1" max="10" value="1" />
-                            <button type="submit" class="add-to-cart-button">Add to Cart</button>
-                        </form>
+
+                        {/* Right */}
+                        <div class="product-info">
+
+                            <h1 class="product-title">{product.title}</h1>
+                            <h3 class="product-price">${product.price}</h3>
+                            <div className='product-features'>
+                                {product.features}
+                            </div>
+
+                            <form class="product-form">
+                                <div className="product-input">
+                                    <i class="fa-solid fa-minus icon" onClick={handleDecrement}></i>
+                                    <input type="number"
+                                        name="product-quantity"
+                                        value={quantity}
+                                        onChange={handleQuantityChange}
+                                        readOnly
+                                    />
+                                    <i class="fa-solid fa-plus icon" onClick={handleIncrement} ></i>
+                                </div>
+                                <button type="submit" class="add-to-cart-button btn">Add to Cart</button>
+                            </form>
+
+                        </div>
                     </div>
+
+                    {/* Description */}
+                    <p>{product.description}</p>
                 </>
             )}
         </div>

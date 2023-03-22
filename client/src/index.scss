@@ -36,3 +36,42 @@ a {
     // font-family: $alata;
     color: inherit;
 }
+
+// disble input increment decrement
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
+
+input[type=number] {
+    outline: none;
+}
+
+input[type=number]:hover,
+input[type=number]:focus {
+    outline: none;
+}
+
+.btn {
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    font-family: $alata;
+    font-weight: 600px;
+    background-color: $purple;
+    color: white;
+    cursor: pointer;
+    border: 2px solid $purple;
+    transition: all 500ms ease-in-out;
+}
+
+.btn:hover {
+    background-color: white;
+    color: $purple;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
