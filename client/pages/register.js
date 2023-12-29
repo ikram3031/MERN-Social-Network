@@ -1,15 +1,15 @@
 import React from 'react'
 
-const Login = () => {
+const register = () => {
   return (
     <div className='conatiner'>
         <div className='row'>
             <div className='col'>
-                Login
+                Register
             </div>
         </div>
     </div>
   )
 }
 
-export default Login
+export default register
