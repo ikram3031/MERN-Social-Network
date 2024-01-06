@@ -1,10 +1,9 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="text-2xl">
-      Hi
-    </div>
+    <BrowserRouter></BrowserRouter>
   );
 }
 
